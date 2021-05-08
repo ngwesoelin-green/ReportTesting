@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+
+    <img id="logo" />
+    <script>
+        var xhp = new XMLHttpRequest();
+        xhp.open("GET", "https://localhost:44370/images/Untitled2.png", true);
+        xhp.responseType = "arraybuffer";
+        xhp.onload = function (e) {
+            var array = new Uint8Array(this.response);
+            var blob = new Blob([array], { type: "image/jpeg" });
+            var urlCreator = window.URL || window.webkitURL;
+            var imageUrl = urlCreator.createObjectURL(blob);
+            var img = document.querySelector("#logo");
+            img.src = imageUrl;
+        };
+        xhp.send();
+
+    </script>
+
+    <div id="div_pdf" />
+    <input type="text" id="txtName" />
+    <button onclick="onClick_Go()">Go</button>
+    <script>
+        function onClick_Go() {
+            var xhp = new XMLHttpRequest();
+            //xhp.open("GET", "https://localhost:44370/PDF/INDO RAKHINE.pdf", true);
+            xhp.open("GET", "https://localhost:44370/api/Test/Get?fileName=" + $("#txtName").val(), true);
+            xhp.responseType = "arraybuffer";
+            xhp.onload = function (e) {
+                var array = new Uint8Array(this.response);
+                var blob = new Blob([array], { type: "application/pdf" });
+                var urlCreator = window.URL || window.webkitURL;
+                var blobURL = urlCreator.createObjectURL(blob);
+                //window.open(blobURL);
+                location.replace(blobURL);
+                //var img = document.querySelector("#logo");
+                //img.src = imageUrl;
+            };
+            xhp.send();
+        }
+        //var blob = new Blob([pdfBuffer], { type: '' });
+        //var blobURL = URL.createObjectURL(blob);
+        //window.open(blobURL);
+
+    </script>
+</div>
