@@ -32,7 +32,10 @@ namespace ReportTesting.Controllers
 
         public string GetTest()
         {
-            string versionno = Request.Headers.GetValues("Version").First();
+            if (Request.Headers.Contains("Version")) 
+            {
+                string versionno = Request.Headers.GetValues("Version").First();
+            };
             return "abc";
         }
 
