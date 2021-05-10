@@ -30,5 +30,11 @@ namespace ReportTesting.Controllers
             return httpResponseMessage;
         }
 
+        public string GetTest()
+        {
+            string versionno = Request.Headers.GetValues("Version").First();
+            return "abc";
+        }
+
     }
 }
